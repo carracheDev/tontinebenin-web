@@ -156,7 +156,7 @@ export function Hero() {
             ))}
           </div>
         </div>
-        <div className="order-first md:order-none flex justify-center">
+        <div className="flex justify-center">
           <div className="w-[280px] bg-[#0f172a] rounded-[40px] p-3 shadow-soft">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/screens/04-dashboard.jpeg" alt="Tableau de bord TontineBénin" className="w-full block rounded-[28px]" />
