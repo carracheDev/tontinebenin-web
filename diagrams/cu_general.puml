@@ -1,0 +1,61 @@
+@startuml CAS_UTILISATION_GENERAL
+title Cas d'utilisation — TontineBénin (Vue générale)
+
+skinparam backgroundColor #FEFEFE
+skinparam actorBackgroundColor #16A34A
+skinparam usecaseBackgroundColor #F0FDF4
+skinparam usecase {
+  BorderColor #16A34A
+  FontColor #1F2937
+}
+
+actor Client as C
+actor Collecteur as Co
+actor Admin as A
+actor "Système KKiaPay" as KKP
+actor "Système SMS\n(Africa's Talking)" as SMS
+
+rectangle TontineBénin {
+  usecase "Authentification" as UC1
+  usecase "Gestion Profil" as UC2
+  usecase "Cotisation" as UC3
+  usecase "Retrait" as UC4
+  usecase "Tontine (Groupe)" as UC5
+  usecase "Score Crédit" as UC6
+  usecase "Micro-crédit" as UC7
+  usecase "Commission" as UC8
+  usecase "Dashboard" as UC9
+  usecase "Gestion Utilisateurs" as UC10
+  usecase "Litiges" as UC11
+  usecase "Validation Retrait\n(≥50k FCFA)" as UC12
+  usecase "Notification" as UC13
+}
+
+C --> UC1 : s'inscrire / se connecter
+C --> UC2 : modifier profil, KYC
+C --> UC3 : cotiser via Mobile Money\nou USSD ou Collecteur
+C --> UC4 : retirer (OTP)
+C --> UC5 : créer / rejoindre / cotiser\ndans groupe
+C --> UC6 : voir son score
+C --> UC7 : demander micro-crédit\navec consentement SMS
+C --> UC9 : voir solde, historique
+
+Co --> UC3 : collecter cotisations\nphysiquement
+Co --> UC8 : voir commissions
+Co --> UC9 : dashboard collecteur
+Co --> UC7 : initier micro-crédit\npour client
+
+A --> UC10 : gérer comptes utilisateurs\n(bloquer, activer, etc.)
+A --> UC12 : valider/refuser\nretraits importants
+A --> UC9 : analytics, KPIs
+A --> UC11 : gérer disputes, litiges
+A --> UC2 : vérifier KYC
+
+UC3 -.-> KKP : appel API paiement
+UC4 -.-> KKP : appel API retrait
+UC7 -.-> SMS : envoyer SMS consentement
+UC13 -.-> SMS : notification SMS
+UC13 -.-> C : notifier actions
+UC13 -.-> Co : notifier commissions
+
+@enduml
